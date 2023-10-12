@@ -10,7 +10,6 @@ describe("MyToken", function () {
   // We use loadFixture to run this setup once, snapshot that state,
   // and reset Hardhat Network to that snapshot in every test.
   async function deployMyToken() {
-    // Contracts are deployed using the first signer/account by default
     const [owner, otherAccount] = await ethers.getSigners();
     const MyToken = await ethers.getContractFactory("MyToken");
     const myToken = await MyToken.deploy();
