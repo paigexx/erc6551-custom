@@ -1,4 +1,3 @@
-const { TokenboundClient } = require("@tokenbound/sdk");
 const {ethers} = require("hardhat");
 require("dotenv").config();
 const artifact = require("../artifacts/contracts/ERC6551Account.sol/ERC6551Account.json")
