@@ -20,18 +20,3 @@ const pinFileToIPFS = async () => {
   console.log(res.data);
 };
 pinFileToIPFS();
-
-
-// pinnie.png
-// {
-//   IpfsHash: 'QmVVBisyyvWwxEB5eQnhdJMeKcnzB5TiEUPoLH4ew5g6Gk',
-//   PinSize: 3923,
-//   Timestamp: '2023-10-13T17:04:14.189Z'
-// }
-
-// pinnie.json
-// {
-//   IpfsHash: 'QmX6jRiSyNY38Jp7hB8GS3XrG1EBEpwPMzfgoUAyznMrrk',
-//   PinSize: 131,
-//   Timestamp: '2023-10-13T17:06:43.233Z'
-// }
