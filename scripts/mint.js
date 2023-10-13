@@ -6,11 +6,14 @@ async function main() {
   const Pinnie = await ethers.getContractFactory("Pinnie");
   const pinnie = await Pinnie.attach(process.env.PINNIE_ADDRESS);
   tokenId = await pinnie.nextId()
-  const mintToAddress = process.env.WALLET_ADDRESS;
-  const baseURI = "ipfs://QmZjMLf9JP9EyFgsVnwraWw8S2mTKFPQWqNg7M1WBF5TJn";
+   //Replae with your IPFS hash from pinContent.js (json file)
+  const baseURI = "ipfs://QmTRxBoLapSUgAiaz2FxvQYW2ektgJnhoomzaQ8Q76puvA"
+ 
 
+  //Address you want to mint your NFT to
+  const to = process.env.WALLET_ADDRESS
   // Mint token
-  const tx = await pinnie.mint(mintToAddress, baseURI);
+  const tx = await pinnie.safeMint(to, baseURI);
 
   // Wait for the transaction to be mined
   const receipt = await tx.wait();
@@ -21,7 +24,7 @@ async function main() {
 
   // Check if the transaction was successful (status 1)
   if (receipt.status === 1) {
-    console.log(`Transaction was successful. Token ${tokenId} minted to ${mintToAddress}`);
+    console.log(`Transaction was successful. Token ${tokenId} minted to ${to}`);
   } else {
     console.log("Transaction failed.");
   }

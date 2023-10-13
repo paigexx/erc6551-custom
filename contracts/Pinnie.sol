@@ -1,23 +1,56 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.20;
+
+import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
-import "hardhat/console.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
+
+contract Pinnie is ERC721, ERC721URIStorage, Ownable {
+    uint256 public _tokenId;
+    string private _baseTokenURI;
+
+    constructor(string memory baseURI)
+        ERC721("Pinnie", "PIN")
+        Ownable(msg.sender)
+    {
+        _baseTokenURI = baseURI;
+    }
 
 
-contract Pinnie is ERC721URIStorage {
-    uint256 public tokenId;
-    event minted(uint256);
-
-    constructor() ERC721("Pinnie", "PIN") {}
-
-    function mint(address to, string memory tokenURI) external payable {
-        _safeMint(to, tokenId);
-        _setTokenURI(tokenId, tokenURI);
-        emit minted(tokenId);
-        tokenId += 1;
+    function safeMint(address to, string memory uri) public onlyOwner {
+        uint256 newTokenId = _tokenId++;
+        _safeMint(to, newTokenId);
+        _setTokenURI(newTokenId, uri);
     }
 
     function nextId() external view returns(uint256) {
-        return tokenId;
+        return _tokenId;
+    }
+
+    function _baseURI() internal view override returns (string memory) {
+        return _baseTokenURI;
+    }
+
+    function setBaseURI(string memory baseURI) public onlyOwner {
+        _baseTokenURI = baseURI;
+    }
+
+    // The following functions are overrides required by Solidity.
+    function tokenURI(uint256 tokenId)
+        public
+        view
+        override(ERC721, ERC721URIStorage)
+        returns (string memory)
+    {
+        return super.tokenURI(tokenId);
+    }
+
+    function supportsInterface(bytes4 interfaceId)
+        public
+        view
+        override(ERC721, ERC721URIStorage)
+        returns (bool)
+    {
+        return super.supportsInterface(interfaceId);
     }
 }
