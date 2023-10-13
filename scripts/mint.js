@@ -1,15 +1,16 @@
-const hre = require("hardhat");
+require("hardhat");
 require("dotenv").config();
 
 async function main() {
   // Get the contract instance
-  const MyToken = await ethers.getContractFactory("MyToken");
-  const myToken = await MyToken.attach(process.env.MYTOKEN_ADDRESS);
-  tokenId = await myToken.nextId()
+  const Pinnie = await ethers.getContractFactory("Pinnie");
+  const pinnie = await Pinnie.attach(process.env.PINNIE_ADDRESS);
+  tokenId = await pinnie.nextId()
   const mintToAddress = process.env.WALLET_ADDRESS;
+  const baseURI = "ipfs://QmZjMLf9JP9EyFgsVnwraWw8S2mTKFPQWqNg7M1WBF5TJn";
 
-  // Mint tokens
-  const tx = await myToken.mint(mintToAddress, "");
+  // Mint token
+  const tx = await pinnie.mint(mintToAddress, baseURI);
 
   // Wait for the transaction to be mined
   const receipt = await tx.wait();

@@ -12,8 +12,18 @@ import  "../interfaces/IERC6551Executable.sol";
 
 contract ERC6551Account is IERC165, IERC1271, IERC6551Account, IERC6551Executable {
     uint256 public state;
+    bytes32 public accountName;
 
     receive() external payable {}
+
+    function setAccountName(bytes32 newName_) public {
+        require(_isValidSigner(msg.sender), "Invalid signer");
+        accountName = newName_;
+    }
+    
+    function getAccountName() view public returns (bytes32) {
+        return accountName;
+    }
 
     function execute(
         address to,
@@ -35,6 +45,8 @@ contract ERC6551Account is IERC165, IERC1271, IERC6551Account, IERC6551Executabl
             }
         }
     }
+
+
 
     function isValidSigner(address signer, bytes calldata) external view returns (bytes4) {
         if (_isValidSigner(signer)) {

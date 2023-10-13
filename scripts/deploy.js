@@ -7,8 +7,8 @@
 require("hardhat");
 
 async function main() {
-  const MyToken = await ethers.deployContract("MyToken");
-  const myToken = await MyToken.waitForDeployment();
+  const Pinnie = await ethers.deployContract("Pinnie");
+  const pinnie = await Pinnie.waitForDeployment();
  
 
   const Account = await ethers.deployContract("ERC6551Account");
@@ -17,7 +17,7 @@ async function main() {
   const Registry = await ethers.deployContract("ERC6551Registry");
   const registry = await Registry.waitForDeployment();
 
-  console.log("MyToken contract deployed at:", myToken.target);
+  console.log("Pinnie contract deployed at:", pinnie.target);
   console.log("Account contract deployed at:", account.target);
   console.log("Registry contract deployed at:", registry.target);
 }

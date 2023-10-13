@@ -7,13 +7,12 @@ async function generateRandomSalt(lengthInBytes) {
     return BigInt("0x" + salt.toString("hex"));
 }
 
-
 async function main() {
   const Registry = await ethers.getContractFactory("ERC6551Registry");
   const registry = await Registry.attach(process.env.ERC6551REGISTRY_ADDRESS);
   const saltLength = 16; 
   const salt = await generateRandomSalt(saltLength);  const implementation = process.env.ERC6551ACOUNT_ADDRESS
-  const tokenAddress = process.env.MYTOKEN_ADDRESS;
+  const tokenAddress = process.env.PINNIE_ADDRESS;
   const tokenId = process.env.TOKEN_ID
   const chainID = process.env.CHAIN_ID
   const initData = "0x";
