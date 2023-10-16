@@ -2,9 +2,8 @@
 custom ERC-6551 implementation built for pinata.cloud
 
 ```shell
-npx hardhat node
-
+npm i
+npx hardhat compile
 npx hardhat run scripts/deploy.js
-npx hardhat test test/MyToken.js
 ```
 
